@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Meals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1 :class="{ 
+                'meat-text': dietplan === 'Meat', 
+                'vegetarian-text': dietplan === 'Vegetarian', 
+                'vegan-text': dietplan === 'Vegan' 
+            }">
+            {{ h1Text }}</h1>
+
+        <h2 v-show="dietplan === ''">{{ h2Text }}</h2>
+
+        <div id="filter">
+            <button @click="dietplan = ''">All</button>&nbsp;
+            <button id="meat" @click="dietplan = 'Meat'">Meat</button>&nbsp;
+            <button id="vegetarian" @click="dietplan = 'Vegetarian'">Vegetarian</button>&nbsp;
+            <button id="vegan" @click="dietplan = 'Vegan'">Vegan</button>
+        </div>
+
+        <div v-for="{ diet, emojis, cssClass, meals } in dynamicTodaysMeals" :key="diet">
+            <h2 :class="cssClass">{{ diet }} {{ emojis }}</h2>
+            <ul>
+                <li v-for="meal of meals" :key="meal">{{ meal }}</li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
